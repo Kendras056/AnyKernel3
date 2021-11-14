@@ -45,6 +45,18 @@ set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
 ## AnyKernel install
 dump_boot;
 
+# begin EAS patch changes
+if [ ! -e "/vendor/etc/powerhint.json" ]; then
+    ui_print " " "ROM you are using is HMP!"
+    ui_print "Installing Module EAS PowerHAL!!!"
+    rm -rf /data/adb/modules/todz;
+    cp -rf $home/patch/eas-perfhal /data/adb/modules/todz;
+else
+    ui_print " " "ROM you are using is EAS!"
+    ui_print "No need Module EAS PowerHAL..."
+fi
+# end EAS patch changes
+
 # begin ramdisk changes
 
 # init.rc
